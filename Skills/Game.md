@@ -16,7 +16,7 @@
 
 ## 1. 像素角色/武器/特效生成
 
-以像素 VFX 生成和导出为主。Pixelbolt 也覆盖精灵、图块与图标；本仓库的 scenario-pixel-vfx 渲染脚本专注特效，不负责生成角色或武器底图，不能视为完整的角色逐帧动画方案。
+以像素 VFX 生成和导出为主。Pixelbolt 也覆盖精灵、图块与图标；本仓库的 scenario-pixel-vfx 渲染脚本专注特效，不负责生成角色或武器底图，不能视为完整的角色逐帧动画方案。角色多动作动画另可试用下列 Agent Sprite Forge，需区分模型生成与本地后处理的可靠性。
 
 ### A 线：精灵表 / PNG（跨引擎素材，推荐你优先）
 
@@ -26,6 +26,7 @@
 | **[Scenario Pixel VFX Forge](https://www.scenario.com/explorations/pixel-vfx-forge/)** + 可下载 Agent Skill | 自然语言 → 分层配方 → **浏览器/本地免费渲染** | 精灵表、单帧、GIF、JSON atlas、**Godot 4 SpriteFrames** | 可直接用导出包 | 用表自行切片即可 | 探索页可使用；Skill 的再分发许可按上游分发物核对 | 适合浏览器试配方和导出 | 偏像素战斗/法术；网页导出与本地脚本能力分开判断 |
 | 本仓库 **[scenario-pixel-vfx](VFX/scenario-pixel-vfx/SKILL.md)** | 文字 → 效果配方 → 本地出帧 | PNG 精灵表、JSON atlas、GIF、可选单帧 | 需切片或转换为 SpriteFrames，脚本不直接导出该资源 | Sprite Editor 切片 / 动画 | 本地渲染无云额度；云端生成角色另计费用，许可分别核对 | 适合 Agent 本地素材流水线 | 支持带背景预览；与网页 Forge 的导出范围不同 |
 | **[Pixelfx](https://github.com/patch-gg/pixelfx)** | 上游标称 244 个程序化特效（2026-11-02 核对） + 可自写新特效 | sheet + Aseprite 风格 JSON，再导入 | sheet + Aseprite 风格 JSON，再导入 | sheet + Aseprite 风格 JSON，再导入 | MIT | 同上 | 适合已接入 Agent 流水线时 |
+| **[Agent Sprite Forge](https://github.com/0x0funky/agent-sprite-forge)**（社区 Skill，试用候选） | 角色母图 → 模型图生视频 → 本地抠像、对齐、循环、像素化；道具/图标/特效也有精灵表路线 | 透明 PNG 帧/图集、动画 JSON、GIF 等预览；角色可选 HD 或 pixel | 提供 SpriteFrames 等导出，当前版本未验证编辑器实际导入 | PNG 图集可自行切片与配置动画，不据此保证自动接入 Animator | 代码 MIT；生图/视频使用 API 或订阅额度，**不等于全流程免费** | 补充角色 idle/walk/run/attack 等多动作制作，需审片和可能返修 | 2026-11-04 核对上游 0.4.0 文档及关键源码；本仓库未安装、未端到端实测，详见下方评估 |
 
 ### B 线：引擎内程序化（不是精灵素材包）
 
@@ -51,9 +52,24 @@
 |---|---|
 | 要当游戏素材、流程像 Unity、Godot/Unity 都能用 | **A：Pixelbolt（默认）**；要浏览器快试再加 Pixel VFX Forge |
 | 只要 Godot、要整段连招 + 打击感、接受非商用协议 | 再看 **B：combat-vfx-demo** |
+| 要让同一角色生成多种动作，接受模型额度、重试和人工修帧 | **A：Agent Sprite Forge 试用候选**；先做单角色 idle/run 小样，再决定是否扩成全套 |
 | Star 多少 | **不当筛选条件**；用产物形态 + 授权 + 是否进引擎来判 |
 
 **一句话推荐**：免费前提下优先 **Pixelbolt（A 线精灵表）**；Scenario Pixel VFX Forge 作同路备选；**combat-vfx-demo 不进默认推荐**，除非明确走 Godot 程序化连招。
+
+### Agent Sprite Forge：角色动画素材生成的适用范围
+
+核对日期：2026-11-04，依据上游当前 **0.4.0** 的文档及 `sprite_set.py`、`finish_frames.py` 源码。**编辑判断：可以收录为原型及待精修素材的生成候选，尚不足以视为稳定、无人值守的像素动画量产方案。** 本轮未运行生成服务或引擎导入；下述效果数据来自作者自测，不是本仓库复现结果。
+
+- **工作方式**：先确认角色母图，再让视频模型分别生成各动作，随后用 Python 脚本抠像、统一比例和锚点、选循环片段、调整时序并打包。默认为 HD，像素素材需显式选择 `pixel`；它也能处理用户提供的视频。[角色动画流程](https://github.com/0x0funky/agent-sprite-forge/blob/main/skills/video2dsprite/SKILL.md)
+- **像素后处理有实际实现**：`finish_frames.py` 包含降采样、共享调色板、时序稳定处理、杂点清理、描边、二值透明度和固定帧格。这些能约束像素输出格式，不能保证模型生成的肢体、武器与动作正确。[像素处理源码](https://github.com/0x0funky/agent-sprite-forge/blob/main/skills/video2dsprite/scripts/finish_frames.py)
+- **示例有用，但仍需人工干预**：作者的 48×64、8 帧狐狸跑步示例已输出每帧 16–19 色和二值透明；但循环来自额外改写提示词后的结果，8 帧由人工隔帧抽取，首尾仍有轻微卡顿。另一角色六动作经历多轮重试，仍留下局部颜色闪烁等问题。不能将展示样例解读为一次生成成功率。[作者实测记录](https://github.com/0x0funky/agent-sprite-forge/blob/main/docs/validation-2026-10-06.md)
+- **自动检查有边界**：数值 QA 不等于美术验收；上游要求查看逐帧预览表再接受动作。已有测试主要在 Windows 本地运行，macOS/Linux 与当前版本的 Godot、Aseprite 等编辑器导入未验证；API 适配的模拟测试也不能证明所有服务均已实调用成功。[已知限制](https://github.com/0x0funky/agent-sprite-forge/blob/main/docs/known-limitations.md)
+- **费用与授权**：项目代码采用 [MIT](https://github.com/0x0funky/agent-sprite-forge/blob/main/LICENSE)，生成服务、参考图和输出素材仍按各自条款。CLI 路线消耗对应账户额度，“本地 CLI”不表示模型本地离线运行；本地后处理本身不调用生成模型。`codeart2d` 是无模型的代码绘制备选，不能保证达到模型生成样例的视觉效果。生成路线默认无额度上限，批量试用前设置调用次数或预算限制。[生成路线与额度说明](https://github.com/0x0funky/agent-sprite-forge#routes-and-providers)
+
+建议的小样验收顺序：**单角色母图 → idle/run → 固定单帧尺寸、统一调色板/pivot → 原尺寸及整数倍预览 → 目标引擎实际播放 → 再扩充 attack/jump/hurt**。逐项看轮廓和武器是否变形、脚底是否漂移、颜色是否闪烁、透明边缘是否干净、循环是否跳帧；攻击命中事件需在游戏内另验。Mac 用户先验证依赖和一个动作，不能将上游 Windows 结果直接视为 Mac 兼容保证。
+
+试用需求示例：同一侧视角色、48×64 固定帧格、透明 PNG、8 帧跑步、每帧 80 ms、跨动作共享最多 32 色调色板、统一脚底 pivot，输出原尺寸/4 倍预览、QA 报告和 Godot SpriteFrames；保留所有警告并列明生成路线、调用次数及未验证项。参数是验收目标，需按实际结果调整或返修。
 
 
 <a id="tiles"></a>
@@ -64,6 +80,7 @@
 |---|---|---|---|
 | [Kenney](https://kenney.nl/assets) | 树、建筑、家具、自然物、简易城镇等现成精灵/图块包 | CC0，可商用 | 可按同一素材包保持风格统一；适合前期铺关，后期按需换皮 |
 | [Autotiler](https://github.com/itsjavi/autotiler) | 几块地形模板 → 扩成 47 格 blob / 导出 Godot·Tiled | MIT，本地/网页 | 负责拼缝规则，不负责「画好看」；常和 Kenney 或自有地块模板搭配 |
+| [Agent Sprite Forge / generate2dmap](https://github.com/0x0funky/agent-sprite-forge#maps)（试用候选） | 分层地图、道具包、tiles/autotiles 生成与地图数据导出 | 代码 MIT；模型生成费用与授权另计 | 与第 1 节角色流程同仓库。碰撞数据不会自动证明与画面一致；拼缝、可通行性与 Tiled/Godot/LDtk 导入仍需目标编辑器验收，不能仅凭预览图当作完整可用关卡 |
 
 
 <a id="godot-workflow"></a>
