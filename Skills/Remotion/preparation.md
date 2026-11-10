@@ -93,6 +93,8 @@ npx skills add Vincentwei1021/video-talkcraft
 
 通过的标准：没有未解除的硬停。形态 C 通过准备，仍然不表示可以合成全长。
 
+准备通过之后，按 [script.md](./script.md) 写一份短调研简报。形态 C 在写旁白之前写。形态 A、B 先做 SRT，简报不挡转写。语言、画幅、字体和社区 Skill 仍按上面的建议，不因为要调研而重新变成硬停。
+
 ## 来源
 
 三种形态是本 Skill 的开工规则。工具、许可和「主音轨只留一份」见 [Video.md](../Video.md)。官方 Skill 的说明见 [Remotion Skills](https://www.remotion.dev/docs/ai/skills)。

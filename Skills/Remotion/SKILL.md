@@ -45,7 +45,9 @@ npx skills add remotion-dev/skills
 - 继续做会编出产品、经历、媒体，或会用许可不清的素材：停下问。
 - 形态 C 的稿没确认，或样音没通过：不合成全长旁白。
 - 没有从成品音轨核对过的 SRT：不铺全片，不正式导出。
+- 旁白或画面要写成事实，但来源对不上：停下问，不编功能、经历或数字。
 - 长片的短样片没有通过：不按该样式铺完全片。
+- 片子承诺了动作、演示或讲解，而短样片没过 [quality.md](./quality.md) 的幻灯片风险：不锁定短样片，不正式导出。
 - [quality.md](./quality.md) 的必过项没有通过：不正式导出。
 - 当前会话不在主人的 Mac 上：不要连接 `127.0.0.1:3901`，也不要声称已经调用了 AudioSmith。改按 [tone.md](./tone.md) 说明环境并询问降级。
 
@@ -56,3 +58,5 @@ npx skills add remotion-dev/skills
 [Video.md](../Video.md) 是工具、素材和许可的清单。阶段里需要的技能和工具从那里打开，不在本目录重写一份名单。[Remotion-AI-Video-Workflow.mmd](../Remotion-AI-Video-Workflow.mmd) 是同一流程的图。图和 workflow.md 不一致时，以 workflow.md 为准，不要为此停下。
 
 工具名单和许可以 Video.md 里已经写明的事实为准。阶段门以 workflow.md 为准。两处若对不上，在回复里指出差异，按这两条做，不要另写一套流程，也不要停掉这一轮。
+
+调研简报、按任务选工具、幻灯片风险和素材库候选，是本 Skill 自己的约定。写法参考过 OpenMontage，但不是采用它。实际要打开的是 Video.md 和本目录里的阶段文件。不安装、不复制那个仓库，也不把它的流水线或工具接进来。

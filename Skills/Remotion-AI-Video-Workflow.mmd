@@ -14,11 +14,13 @@ flowchart TD
     subgraph S1["一、按形态得到成品音轨和 SRT"]
         FA["A 真人出镜<br/>分析与画面一致的人声"]
         FB["B 真人讲解音频<br/>分析讲解音轨，不布局出镜"]
+        FC0["C：短调研简报<br/>事实带来源，不够就问"]
         FC1["C 只有脚本<br/>先确认稿"]
         FC2["样音通过后合成全长<br/>Mac 上优先 AudioSmith<br/>Edge TTS 须同意"]
         SRT["production/narration.srt<br/>成品音轨决定何时说<br/>稿只校对专名"]
-        SC["制作脚本的画面<br/>引用 SRT 序号和起止"]
-        P4 --> FA & FB & FC1
+        SC["制作脚本的画面<br/>引用 SRT 序号和起止<br/>A/B 的简报在 SRT 之后核对事实"]
+        P4 --> FA & FB & FC0
+        FC0 --> FC1
         FA --> SRT
         FB --> SRT
         FC1 --> FC2 --> SRT
@@ -27,11 +29,11 @@ flowchart TD
 
     subgraph S2["二、样式、素材、画面"]
         ST["先锁自家样式<br/>统一背景、字体、信息层级<br/>需要白板、手绘、火柴人时才打开对应仓库"]
-        AS["素材清单<br/>真实截图和录屏优先<br/>许可不清不进画面"]
+        AS["素材清单<br/>真实截图和录屏优先<br/>素材库只作带 SRT 序号的候选<br/>许可不清不进画面"]
         PIC{"这段画面有没有合用的社区 Skill"}
         PIC1["有：打开并跟随那一段<br/>产品镜头可用 shotcraft<br/>出镜布局可用 talkcraft<br/>混合片可以各用一段"]
         PIC2["没有、拒绝安装或只覆盖一部分<br/>官方 skills 做排版、布局、运动、字幕和渲染"]
-        SS["短样片<br/>成品旁白、SRT、真实素材<br/>预览在本轮同意后可继续"]
+        SS["短样片<br/>成品旁白、SRT、真实素材<br/>锁定前先过幻灯片风险"]
         SC --> ST --> AS --> PIC
         PIC -->|合用| PIC1 --> SS
         PIC -->|否则| PIC2 --> SS
@@ -39,9 +41,9 @@ flowchart TD
 
     subgraph S3["三、声音、质量、导出"]
         SFX["音效切点用 SRT<br/>人试听之后才算完成"]
-        Q{"质量门<br/>官方 skills 加真实素材也可以通过"}
+        Q{"质量门<br/>含幻灯片风险<br/>官方 skills 加真实素材也可以通过"}
         EX["用户同意后正式导出"]
-        AR["归档工程、脚本、音轨、SRT、paths.md"]
+        AR["归档工程、简报、脚本、音轨、SRT、paths.md"]
         SS --> SFX --> Q
         Q -->|不过| SS
         Q -->|过且同意导出| EX --> AR
