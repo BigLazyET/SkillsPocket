@@ -24,7 +24,7 @@
 
 用 React 创建视频和动态图形，偏向于产品宣传，口播讲解，技术讲解等视频
 
-给 Agent 执行时的阶段顺序、确认门和编排提示词见 [Remotion 个人视频 Skill](Remotion/SKILL.md)。本页继续作为工具、素材和许可清单。Skill 与本页对不上时，停下来指出差异：工具名单和许可以本页已写明的事实为准，阶段门以 Skill 的 workflow 为准。
+给 Agent 执行时的阶段顺序、确认门和编排提示词见 [Remotion 个人视频 Skill](Remotion/SKILL.md)。本页继续作为工具、素材和许可清单。Skill 与本页对不上时，指出差异并继续按此处理，不要为此停掉制作：工具名单和许可以本页已写明的事实为准，阶段门以 Skill 的 workflow 为准。
 
 可用 Remotion 官方维护的 remotion-dev/skills 打底；宣传片可评估社区 video-shotcraft，口播讲解可评估 video-talkcraft，动效设计可参考 motion-design-skill。社区方案按样片、依赖和项目需求选择，目前没有足够的比较证据将这些方案称为“最优组合”。
 
