@@ -1,6 +1,6 @@
 # 素材
 
-[入口](./SKILL.md) · [编排](./produce-prompt.md) · [工作流](./workflow.md) · [脚本](./script.md) · [音色](./tone.md) · [音效](./sfx.md) · [质量门](./quality.md)
+[入口](./SKILL.md) · [编排](./produce-prompt.md) · [工作流](./workflow.md) · [准备](./preparation.md) · [脚本](./script.md) · [音色](./tone.md) · [素材](./resources.md) · [音效](./sfx.md) · [质量门](./quality.md)
 
 本文件规定画面素材怎么收集、命名、核对许可，以及怎么交到一个段落。音效不在这里，见 [sfx.md](./sfx.md)。配音文件的生成见 [tone.md](./tone.md)。
 
@@ -8,7 +8,7 @@
 
 ## 输入和输出
 
-输入是确认中的制作脚本，以及用户给出的文件夹、网址或出镜成片。
+输入是确认中的制作脚本、已核对的 `production/speech-timeline.srt`，以及用户给出的文件夹或网址。素材的入点、出点写的是这条时间轴上的时间，不另估一套。没有时间轴时，只列路径和许可，不写进成片的秒数。
 
 输出是视频工程里的素材清单。每条至少有：
 
@@ -73,7 +73,7 @@ Remotion 要读取的文件放到工程的 `public/`，或官方 Skill 要求的
 - 品牌商标和素材仓库的开源许可不是一回事。能下载到 SVG，不等于可以在商业广告里任意使用该商标。
 - Pexels、Mixkit 按它们各自的许可使用，不标成 CC0。
 - CC0、CC BY、CC BY-NC 分开写。CC BY-NC 不用于商用片子。
-- 字体随文件记下许可。中文无特别指定时用 [Noto CJK](https://github.com/notofonts/noto-cjk)（SIL Open Font License）。渲染前确认字体已经加载，做法用官方 Remotion Skill，不在这里写加载代码。
+- 字体随文件记下许可。用户没指定时，先按 [preparation.md](./preparation.md) 询问是否使用 [Noto CJK](https://github.com/notofonts/noto-cjk)（SIL Open Font License），同意后才用。渲染前确认字体已经加载，做法用官方 Remotion Skill，不在这里写加载代码。
 
 许可是「待确认」的，不进入 composition。
 
@@ -89,11 +89,12 @@ Remotion 要读取的文件放到工程的 `public/`，或官方 Skill 要求的
 
 画面阶段只读清单里已经能用的条目：
 
-- 用「段落」列对上制作脚本，不用文件名猜测。
+- 用「段落」列对上制作脚本，不用文件名猜测。每段的出现时间引用主语音时间轴的序号或起止。
 - 录屏使用入点–出点，不把整段原始文件铺进一个短句。
-- 出镜段遵守脚本里的「看见谁」。B-roll 盖住脸时，主音轨仍是出镜原声。
+- 形态 A 的出镜镜头用脚本里已经决定的形状、位置和运动。B-roll 盖住脸时，人声仍是那条时间轴。
+- 形态 B、C 不把素材框成出镜表演。
 - 图解放在它解释的那一句的时间里，不抢演示段的位置。
-- 清单没有的画面，先补清单再进工程。不要在代码里临时发明一张未登记的产品图。
+- 清单没有的画面，先补清单再进工程。不要在代码里临时发明一张未登记的产品图。缺文件就停下来问。
 
 ## 失败时
 
