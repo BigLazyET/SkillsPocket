@@ -16,12 +16,15 @@
 - [表情、品牌、图标与可复用角色素材](#icons)
 - [官方 Skills 与制作环节补充](#production)
 - [个人发布工作流](#workflow)
+- [个人 Remotion 制作 Skill](Remotion/SKILL.md)
 
 <a id="remotion"></a>
 
 ## 1. Remotion 做视频和动态图形
 
 用 React 创建视频和动态图形，偏向于产品宣传，口播讲解，技术讲解等视频
+
+给 Agent 执行时的阶段顺序、确认门和编排提示词见 [Remotion 个人视频 Skill](Remotion/SKILL.md)。本页继续作为工具、素材和许可清单。Skill 与本页对不上时，停下来指出差异：工具名单和许可以本页已写明的事实为准，阶段门以 Skill 的 workflow 为准。
 
 可用 Remotion 官方维护的 remotion-dev/skills 打底；宣传片可评估社区 video-shotcraft，口播讲解可评估 video-talkcraft，动效设计可参考 motion-design-skill。社区方案按样片、依赖和项目需求选择，目前没有足够的比较证据将这些方案称为“最优组合”。
 
@@ -278,6 +281,8 @@ earshot 完整调用例子为 `earshot sfx render whoosh_fast/crisp -o whoosh.wa
 ## 8. 个人发布工作流
 
 <a id="workflow"></a>
+
+Agent 按 [工作流规约](Remotion/workflow.md) 推进。下面是该规约吸收的背景，不是另一套顺序。
 
 1. 明确主题、受众、目标时长与画幅，写旁白稿和镜头提纲。
 2. 收集本人录屏、截图、B-roll、图标、字体；同时记录素材来源与许可。
