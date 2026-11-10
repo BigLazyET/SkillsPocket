@@ -16,7 +16,7 @@
 - [表情、品牌、图标与可复用角色素材](#icons)
 - [官方 Skills 与制作环节补充](#production)
 - [个人发布工作流](#workflow)
-- [个人 Remotion 制作 Skill](Remotion/SKILL.md)
+- [个人 Remotion 制作 Skill](remotion-personal-video/SKILL.md)
 
 <a id="remotion"></a>
 
@@ -24,7 +24,7 @@
 
 用 React 创建视频和动态图形，偏向于产品宣传，口播讲解，技术讲解等视频
 
-给 Agent 执行时的阶段顺序、确认门和编排提示词见 [Remotion 个人视频 Skill](Remotion/SKILL.md)。本页继续作为工具、素材和许可清单。Skill 与本页对不上时，指出差异并继续按此处理，不要为此停掉制作：工具名单和许可以本页已写明的事实为准，阶段门以 Skill 的 workflow 为准。
+给 Agent 执行时的阶段顺序、确认门和编排提示词见 [Remotion 个人视频 Skill](remotion-personal-video/SKILL.md)。本页继续作为工具、素材和许可清单。Skill 与本页对不上时，指出差异并继续按此处理，不要为此停掉制作：工具名单和许可以本页已写明的事实为准，阶段门以 Skill 的 workflow 为准。
 
 可用 Remotion 官方维护的 remotion-dev/skills 打底；宣传片可评估社区 video-shotcraft，口播讲解可评估 video-talkcraft，动效设计可参考 motion-design-skill。社区方案按样片、依赖和项目需求选择，目前没有足够的比较证据将这些方案称为“最优组合”。
 
@@ -64,7 +64,7 @@
 
 **当前选型范围**：保留本地、无月度生成配额优先的偏好，暂不纳入 ElevenLabs、SFXMint、Lots of Sounds 及依赖月度额度的文生音效服务；这不代表这些产品没有免费层或不支持商用，其当前价格与条款尚未逐项核实。
 
-**本地与免费素材优先的建议栈**：`@remotion/sfx`（底） + **earshot**（主） + Kenney/Freesound CC0（补洞）；走宣传片可评估 shotcraft 的音频工作流，使用前确认具体音频许可。
+**本地与免费素材优先的选材**：先复用所用 Skill、模板或工程内合用的音效，再用官方包、社区 Skill 或其他来源补缺。用户自备声音和个人库可补充。具体顺序见 [音效阶段](remotion-personal-video/sfx.md)，每条按实际素材核对许可。
 
 整个视频流水线并非无条件免费：[Remotion 当前许可](https://www.remotion.dev/docs/license/pricing)对个人及至多 3 人公司提供免费许可，其他组织按资格适用相应方案；模型和外部服务另看各自条款。
 
@@ -79,7 +79,7 @@ Freesound 逐条区分：CC0 可按其条款使用；CC BY 需署名；CC BY-NC 
 
 ### 建立个人音效库（视频 11:47–12:11）
 
-先收听、筛选一小批常用音效，交给 Agent 整理标签；以后优先从本地库取用，缺口再外找或合成。下面是可落地的索引示例，不代表已下载这些文件：
+先收听、筛选一小批常用音效，交给 Agent 整理标签；当前 Skill 和工程有合用声音时直接复用，本地库可补位。下面是可落地的索引示例，不代表已下载这些文件：
 
 | 类别 | 文件命名示例 | 用途与标注 |
 |---|---|---|
@@ -152,14 +152,14 @@ Freesound 逐条区分：CC0 可按其条款使用；CC BY 需署名；CC BY-NC 
 | 需要手机端预览 / 多种加速后端 | **VoiceStudio** | 有移动端预览与多加速后端 |
 
 
-### SRT 是配音与画面的时间依据（视频 05:29–06:56）
+### 用成品音轨对齐 SRT 和画面（视频 05:29–06:56）
 
-逐字稿定义“说什么”，最终录音定义“何时说”；SRT 记录每条字幕的序号、起止时间及文本。画面和动效可引用这些时间，避免按文字长度猜语速。只有稿件、没有音轨时，生成的时间只能是估计。
+逐字稿定义“说什么”，最终录音定义“何时说”；SRT 记录每条字幕的序号、起止时间及文本。画面和动效可引用 SRT 定位对白，再用统一的成片帧编排。画面可以跨句或放在停顿里，见 [时间映射](remotion-personal-video/timeline.md)。只有稿件、没有音轨时，生成的时间只能是估计。
 
 1. 先完成录音或 TTS，提供与该音轨匹配的脚本供校对。
 2. 用 ASR / 对齐工具取得时间戳。作者使用社区实现 [whisper.cpp](https://github.com/ggml-org/whisper.cpp) 运行 Whisper `large-v3-turbo`；也提到飞书妙记、剪映等转写工具。普通聊天文本能力不等于已接入语音识别，需检查当前 Agent 的实际工具。
 3. 对照原稿修正人名、专业术语、英文品牌、同音字；原稿只辅助校对，不把实际未念出的内容硬塞进字幕。
-4. 按语义和停顿断句。视频建议多数字幕约 **8～18 个汉字**宽，避免长句挤成两行；这是示例约束，最终以画幅、字号和可读性检查为准。
+4. 按语义和停顿断句。视频建议多数字幕约 **8～18 个汉字**宽，避免长句挤成两行。当前 Skill 按[单行字幕规则](remotion-personal-video/captions.md)验收。
 5. 输出 SRT 并抽查开头、中段、结尾与长停顿，确认没有重叠、漏句或持续偏移；脚本辅助校对仍不能保证零错误。
 6. 在 Remotion 中解析并编排字幕；[官方 `parseSrt()`](https://www.remotion.dev/docs/captions/parse-srt)负责解析文件，不会替代 ASR 或验证音画是否真实同步。普通句级 SRT 也不自动具备逐字高亮所需的字级时间戳。
 
@@ -167,13 +167,13 @@ Freesound 逐条区分：CC0 可按其条款使用；CC BY 需署名；CC BY-NC 
 
 可复用的任务描述（据视频整理）：
 
-> 依据旁白音轨生成 SRT，参考脚本校对术语与错字；按语义和停顿断句，多数字幕控制在约 8～18 个汉字的宽度。需要为章节或动画增加停顿时，同步更新音频、SRT 和后续场景时间；最后检查字幕与实际配音同步。
+> 依据旁白音轨生成 SRT，参考脚本校对术语与错字；按语义和停顿拆条。个人 Remotion 成片按[单行字幕规范](remotion-personal-video/captions.md)限制每条字数并测量实际画面宽度。需要为章节或动画增加停顿时，同步更新音频、SRT 和后续场景时间；最后检查字幕与实际配音同步。
 
 <a id="styles"></a>
 
 ## 4. 风格
 
-一支片子里如何选定、简报和锁定其中一种，见 [风格阶段](Remotion/style.md)。下面仍是清单。
+一支片子里如何选定、简报和锁定其中一种，见 [风格阶段](remotion-personal-video/style.md)。下面仍是清单。
 
 - [sy-style-100](https://github.com/xiaoxiong20xx-code/sy-style-100)
 - [lemo-opuscar在线画廊](https://github.com/lemomo-ai/lemo-opuscar)：视频展示了剪辑纪实、手绘、立体书、3D 等方向，适合先看样片再研究对应方法。
@@ -284,7 +284,7 @@ earshot 完整调用例子为 `earshot sfx render whoosh_fast/crisp -o whoosh.wa
 
 <a id="workflow"></a>
 
-Agent 按 [工作流规约](Remotion/workflow.md) 推进。下面是该规约吸收的背景，不是另一套顺序。
+Agent 按 [工作流规约](remotion-personal-video/workflow.md) 推进。下面是该规约吸收的背景，不是另一套顺序。
 
 1. 明确主题、受众、目标时长与画幅，写旁白稿和镜头提纲。
 2. 收集本人录屏、截图、B-roll、图标、字体；同时记录素材来源与许可。

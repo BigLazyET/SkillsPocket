@@ -1,0 +1,16 @@
+{
+  "name": "remotion-personal-video-sync-smoke",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.tsx --no-open",
+    "render:wide": "remotion render src/index.tsx SyncWide out/sync-wide-v1.mp4 --overwrite=false",
+    "render:tall": "remotion render src/index.tsx SyncTall out/sync-tall-v1.mp4 --overwrite=false"
+  },
+  "dependencies": {
+    "@remotion/captions": "4.0.534",
+    "@remotion/cli": "4.0.534",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.534"
+  }
+}

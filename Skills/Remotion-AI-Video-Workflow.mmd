@@ -1,9 +1,9 @@
-%% 与 Skills/Remotion/workflow.md 不一致时，以 workflow.md 为准，不要为此停下这一轮。
+%% 与 Skills/remotion-personal-video/workflow.md 不一致时，以 workflow.md 为准，不要为此停下这一轮。
 flowchart TD
     subgraph S0["零、准备"]
         P["核对简报、路径、许可<br/>官方 Remotion skills 负责排版、渲染和字幕"]
         P1{"形态是否明确"}
-        P2["停下问<br/>A/B/C 冲突、A 或 B 缺源文件<br/>C 没稿也不能起草、许可越界"]
+        P2["停下问<br/>A/B/C 冲突、A/B 指定的已有源文件缺失<br/>C 主题或目标无法确定、许可越界"]
         P3["语言、画幅、字体、片种写成建议并继续<br/>画幅建议 1920×1080 或平台默认"]
         P4["社区 Skill 合用就建议安装<br/>没有就用官方 skills，记入 paths.md"]
         P --> P1
@@ -15,28 +15,34 @@ flowchart TD
         FA["A 真人出镜<br/>分析与画面一致的人声"]
         FB["B 真人讲解音频<br/>分析讲解音轨，不布局出镜"]
         FC0["C：短调研简报<br/>事实带来源，不够就问"]
-        FC1["C 只有脚本<br/>先确认稿"]
-        FC2["样音通过后合成全长<br/>Mac 上优先 AudioSmith<br/>Edge TTS 须同意"]
+        FC1["C 无真人主音轨<br/>AI 写逐镜制作稿和 TTS 台词"]
+        FC2["确认稿和样音后合成全长<br/>Mac 上优先 AudioSmith<br/>Edge TTS 须同意"]
         SRT["production/narration.srt<br/>成品音轨决定何时说<br/>稿只校对专名"]
-        SC["制作脚本的画面<br/>引用 SRT 序号和起止<br/>A/B 的简报在 SRT 之后核对事实"]
-        P4 --> FA & FB & FC0
+        SC["AI 逐镜制作稿<br/>记录人声、素材、切镜、音效和动效<br/>按成片帧排布，SRT 锚定对白<br/>A/B 的简报在 SRT 之后核对事实"]
+        P4 -->|A 已有成品原声| FA
+        P4 -->|B 已有成品原声| FB
+        P4 -->|A/B 需新录或补录| REC["写逐镜稿和录制稿，等待素材回传"]
+        P4 -->|C| FC0
         FC0 --> FC1
         FA --> SRT
         FB --> SRT
         FC1 --> FC2 --> SRT
+        REC -->|出镜视频| FA
+        REC -->|讲解音频| FB
         SRT --> SC
     end
 
     subgraph S2["二、样式、素材、画面"]
         ST["先锁自家样式<br/>统一背景、字体、信息层级<br/>需要白板、手绘、火柴人时才打开对应仓库"]
-        AS["素材清单<br/>真实截图和录屏优先<br/>素材库只作带 SRT 序号的候选<br/>许可不清不进画面"]
+        AS["素材清单<br/>辅助素材优先复用 Skill 和模板资源<br/>真实演示用可核对的截图或录屏<br/>核对每条来源和许可"]
         PIC{"这段画面有没有合用的社区 Skill"}
         PIC1["有：打开并跟随那一段<br/>产品镜头可用 shotcraft<br/>出镜布局可用 talkcraft<br/>混合片可以各用一段"]
         PIC2["没有、拒绝安装或只覆盖一部分<br/>官方 skills 做排版、布局、运动、字幕和渲染"]
-        FCUT["约 5 秒初剪<br/>对齐完整 SRT 条目<br/>成品旁白和真实字幕<br/>音效不必齐"]
+        FCUT["约 15 秒初剪<br/>保留完整对白与关键动作<br/>成品旁白和真实字幕<br/>音效不必齐"]
         LOOK{"主人接受样式、字体和运动？"}
-        FIX["只改他指出的地方<br/>再渲染这约 5 秒"]
-        SS["长片：1～2 分钟短样片<br/>锁定前做完整幻灯片风险"]
+        FIX["只改他指出的地方<br/>再渲染这约 15 秒"]
+        SS["默认超过 120 秒：做代表性样片<br/>质量检查通过并获用户接受"]
+        ROUGH["铺完画面<br/>交完整可播粗剪"]
         SC --> ST --> AS --> PIC
         PIC -->|合用| PIC1 --> FCUT
         PIC -->|否则| PIC2 --> FCUT
@@ -46,13 +52,14 @@ flowchart TD
     end
 
     subgraph S3["三、声音、质量、导出"]
-        SFX["音效切点用 SRT<br/>人试听之后才算完成"]
+        SFX["混音：主音轨必需，音效和配乐可选<br/>实际使用的声音须试听"]
         Q{"质量门<br/>含幻灯片风险<br/>官方 skills 加真实素材也可以通过"}
         EX["用户同意后正式导出"]
         AR["归档工程、简报、脚本、音轨、SRT、paths.md"]
-        SS --> SFX
-        LOOK -->|"接受，短片"| SFX
+        SS --> ROUGH
+        LOOK -->|"接受，短片"| ROUGH
+        ROUGH --> SFX
         SFX --> Q
-        Q -->|不过| FCUT
+        Q -->|不过| FIXQ["退回对应阶段，修后复查"]
         Q -->|过且同意导出| EX --> AR
     end
