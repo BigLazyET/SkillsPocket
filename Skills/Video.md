@@ -173,6 +173,8 @@ Freesound 逐条区分：CC0 可按其条款使用；CC BY 需署名；CC BY-NC 
 
 ## 4. 风格
 
+一支片子里如何选定、简报和锁定其中一种，见 [风格阶段](Remotion/style.md)。下面仍是清单。
+
 - [sy-style-100](https://github.com/xiaoxiong20xx-code/sy-style-100)
 - [lemo-opuscar在线画廊](https://github.com/lemomo-ai/lemo-opuscar)：视频展示了剪辑纪实、手绘、立体书、3D 等方向，适合先看样片再研究对应方法。
 - [huashu-art-motion艺术动画](https://github.com/alchaincyf/huashu-art-motion)：艺术画风与讲解语法可分开选择，如像素、绘画、白板、数学动画与动态文字。
