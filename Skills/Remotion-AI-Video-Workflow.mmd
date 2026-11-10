@@ -33,10 +33,16 @@ flowchart TD
         PIC{"这段画面有没有合用的社区 Skill"}
         PIC1["有：打开并跟随那一段<br/>产品镜头可用 shotcraft<br/>出镜布局可用 talkcraft<br/>混合片可以各用一段"]
         PIC2["没有、拒绝安装或只覆盖一部分<br/>官方 skills 做排版、布局、运动、字幕和渲染"]
-        SS["短样片<br/>成品旁白、SRT、真实素材<br/>锁定前先过幻灯片风险"]
+        FCUT["约 5 秒初剪<br/>对齐完整 SRT 条目<br/>成品旁白和真实字幕<br/>音效不必齐"]
+        LOOK{"主人接受样式、字体和运动？"}
+        FIX["只改他指出的地方<br/>再渲染这约 5 秒"]
+        SS["长片：1～2 分钟短样片<br/>锁定前做完整幻灯片风险"]
         SC --> ST --> AS --> PIC
-        PIC -->|合用| PIC1 --> SS
-        PIC -->|否则| PIC2 --> SS
+        PIC -->|合用| PIC1 --> FCUT
+        PIC -->|否则| PIC2 --> FCUT
+        FCUT --> LOOK
+        LOOK -->|不接受| FIX --> FCUT
+        LOOK -->|"接受，长片"| SS
     end
 
     subgraph S3["三、声音、质量、导出"]
@@ -44,7 +50,9 @@ flowchart TD
         Q{"质量门<br/>含幻灯片风险<br/>官方 skills 加真实素材也可以通过"}
         EX["用户同意后正式导出"]
         AR["归档工程、简报、脚本、音轨、SRT、paths.md"]
-        SS --> SFX --> Q
-        Q -->|不过| SS
+        SS --> SFX
+        LOOK -->|"接受，短片"| SFX
+        SFX --> Q
+        Q -->|不过| FCUT
         Q -->|过且同意导出| EX --> AR
     end

@@ -33,7 +33,7 @@ npx skills add remotion-dev/skills
 
 已安装且合用时，产品界面和宣传节奏优先打开 [video-shotcraft](https://github.com/Vincentwei1021/video-shotcraft)，口播驱动的讲解和出镜布局优先打开 [video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft)。没装、不合用或只覆盖一部分时，用官方 skills 和清单里的真实素材做其余部分。不要把这两个仓库复制进 SkillsPocket。选择规则在 [workflow.md](./workflow.md) 的「画面」。
 
-安装、下载模型、删除、克隆和正式导出之前先问用户。预览和短样片在本轮已经同意过一次之后可以继续。官方文档：[Remotion Skills](https://www.remotion.dev/docs/ai/skills)。
+安装、下载模型、删除、克隆和正式导出之前先问用户。预览和短样片在本轮已经同意过一次之后可以继续。这不包括跳过主人观看五秒初剪。官方文档：[Remotion Skills](https://www.remotion.dev/docs/ai/skills)。
 
 社区 Skill 的步骤若和本 Skill 的门冲突，以 [workflow.md](./workflow.md) 的「社区 Skill 与这些门冲突时」为准。
 
@@ -44,10 +44,11 @@ npx skills add remotion-dev/skills
 - 形态 A、B、C 两可或互相冲突：不配音、不铺画面。
 - 继续做会编出产品、经历、媒体，或会用许可不清的素材：停下问。
 - 形态 C 的稿没确认，或样音没通过：不合成全长旁白。
-- 没有从成品音轨核对过的 SRT：不铺全片，不正式导出。
+- 没有从成品音轨核对过的 SRT：不做五秒初剪，不铺全片，不正式导出。
 - 旁白或画面要写成事实，但来源对不上：停下问，不编功能、经历或数字。
+- 五秒初剪还没被接受：不铺全片，不锁定约 1～2 分钟的短样片，不正式导出。
 - 长片的短样片没有通过：不按该样式铺完全片。
-- 片子承诺了动作、演示或讲解，而短样片没过 [quality.md](./quality.md) 的幻灯片风险：不锁定短样片，不正式导出。
+- 片子承诺了动作、演示或讲解，而五秒初剪没过 [quality.md](./quality.md) 的轻量幻灯片风险：不把这一刀当作通过。短样片或正式导出没过完整的那一节：不锁定短样片，不正式导出。
 - [quality.md](./quality.md) 的必过项没有通过：不正式导出。
 - 当前会话不在主人的 Mac 上：不要连接 `127.0.0.1:3901`，也不要声称已经调用了 AudioSmith。改按 [tone.md](./tone.md) 说明环境并询问降级。
 
